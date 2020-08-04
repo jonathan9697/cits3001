@@ -23,9 +23,9 @@ public class Test {
 	// maximum value of integers in array
 	final static int maxValue  = 10;
 	// maximum length of array
-	final static int maxLength = 20;
+	final static int maxLength = 100;
 	// number of test to perform
-	final static int testCount = 5;
+	final static int testCount = 10;
 	
 	//CONSTRUCTOR
 	
@@ -40,7 +40,9 @@ public class Test {
 	public int[] makeList(int length) {
 		Random objGenerator = new Random();
 		int[] randomList = new int[length];
-		for (int i =0; i<length; i++) randomList[i] = objGenerator.nextInt(maxValue);;
+		for (int i =0; i<length; i++) {
+			randomList[i] = objGenerator.nextInt(maxValue);
+		}
 		return randomList;
 	}
 	
@@ -86,7 +88,7 @@ public class Test {
 	// sorts list and run checks and returns the time
 	// @param list the list to be sorted
 	// @return duration time taken to sort or -1 if tests fail
-	public int sortTimer (int[] list) {
+	public int insertSortTimer (int[] list) {
         long startTime, endTime, duration;
         Insertsort newInsertsort = new Insertsort();
         int[] list1 = list;
@@ -99,18 +101,62 @@ public class Test {
 			return -1;
 		else return (int) duration;		
 	}
+	
+	
+	// merge sorts list and run checks and returns the time
+	// @param list the list to be sorted
+	// @return duration time taken to sort or -1 if tests fail
+	public int mergeSortTimer (int[] list) {
+        long startTime, endTime, duration;
+        Mergesort newMergesort = new Mergesort();
+        int[] list1 = list;
+		startTime = System.nanoTime();
+		newMergesort.sort(list, 0, list.length-1);
+		endTime = System.nanoTime();
+		duration = (endTime-startTime);
+		int[] list2 = list;
+		//perform test on sorted array
+		if (!sortTest(list2) && !elementTest(list1, list2)) 
+			return -1;
+		else return (int) duration;		
+	}
+	
+	
+	// raddix sorts list and run checks and returns the time
+	// @param list the list to be sorted
+	// @return duration time taken to sort or -1 if tests fail
+	public int radixSortTimer (int[] list) {
+        long startTime, endTime, duration;
+        Radixsort newRadixSort = new Radixsort();
+        int[] list1 = list;
+		startTime = System.nanoTime();
+		newRadixSort.sort(list, list.length-1);
+		endTime = System.nanoTime();
+		duration = (endTime-startTime);
+		int[] list2 = list;
+		//perform test on sorted array
+		if (!sortTest(list2) && !elementTest(list1, list2)) 
+			return -1;
+		else return (int) duration;		
+	}
 
 	
 	// tabulates times against lists
 	// @param listCount number of lists
 	// @return array times and lengths
 	public int[][] tabulate(int listCount) {
+		
 		Random objGenerator = new Random();
-		int[][] table = new int[listCount][2];
+		int[][] table = new int[listCount][4];
+		
 		for (int i = 0; i < listCount; i++) {
 			int length = objGenerator.nextInt(maxLength);
+			if (length ==0) length = 1; //prevents lists of zero length
 			table[i][0] = length;
-			table[i][1] = sortTimer(makeList(length));
+			int[] thisList = makeList(length);
+			table[i][1] = insertSortTimer(thisList);
+			table[i][2] = mergeSortTimer(thisList);
+			table[i][3] = radixSortTimer(thisList);
 		}
 		return table;
 	}
@@ -118,11 +164,41 @@ public class Test {
 	
 	public static void main(String[] args) {
         Test tester = new Test();
-        int[][] table = tester.tabulate(testCount);
+        int[][] table = tester.tabulate(testCount);    
+        
         //Print Results
         for (int i = 0; i<table.length; i++) {
-        	System.out.print("length: " + table[i][0]);
-        	System.out.println("  time: " + table[i][1]);
+        	System.out.print("length:"     + table[i][0] + " ");
+        	System.out.print("insertSort:" + table[i][1] + " ");
+        	System.out.print("mergeSort:"  + table[i][2] + " ");
+        	System.out.print("radixSort:"  + table[i][3] + " ");
+        	//determine best
+
+        	int winner = 0;
+        	int winningTime = 1000000000;
+        	for(int k = 1; k<4; k++) {
+        		if (table[i][k] < winningTime) {
+        			winningTime = table[i][k];
+        			winner = k;
+        		}
+        	}
+        	
+        	System.out.print("best:");
+        	switch (winner) {
+        	case 0:
+        		System.out.print("not found");
+        		break;
+        	case 1:
+        		System.out.print("insertSort");
+        		break;
+        	case 2:
+        		System.out.print("mergeSort");
+        		break;
+        	case 3:
+        		System.out.print("radixSort");
+        		break;
+        	}
+        	System.out.println();
         }
 	}
 
