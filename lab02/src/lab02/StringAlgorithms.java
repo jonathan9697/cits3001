@@ -67,16 +67,18 @@ public class StringAlgorithms {
 		for (int j=0; j<m; j++) {
 			pInt = pInt*10 + p[j];
 		}
-		System.out.println("pInt: " + pInt);
 		
 		//Rabin-Karp matching
-		for (int s=0; s<n-m+1; s++) {
-				int z = 0;
-				for(int j=0; j<m; j++) {
-					z = z*10 + t[j+s];
-				}
-				if (z != pInt) continue;
-				else result.add(s);
+		//check initial shift
+		int z = 0;
+		for(int j=0; j<m; j++) z = z*10 + t[j];
+		if (z == pInt) result.add(0);
+		//check remaining shifts
+		for (int s=1; s<n-m+1; s++) {
+			z = (int) (z%(Math.pow(10, m-1)) * 10 + t[s+m-1]);
+			System.out.println("z: " + z);
+			if (z != pInt) continue;
+			else result.add(s);
 		}
 		return result;
 	}
@@ -89,7 +91,7 @@ public class StringAlgorithms {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] t = {1,  3,  9,  9,  1,  3,  9,  3};
-		int[] p = {3, 9};
+		int[] p = {1, 3};
 		
 		StringAlgorithms test = new StringAlgorithms();
 		System.out.println("naive:     " + Arrays.toString(test.naive(t, p).toArray()));
