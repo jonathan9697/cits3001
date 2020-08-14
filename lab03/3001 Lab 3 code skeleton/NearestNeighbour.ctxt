@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=NearestNeighbour
+comment1.params=
+comment1.target=NearestNeighbour()
+comment2.params=table
+comment2.target=int[]\ tspnn(double[][])
+comment2.text=\n\ Returns\ the\ shortest\ tour\ found\ by\ exercising\ the\ NN\ algorithm\ \n\ from\ each\ possible\ starting\ city\ in\ table.\n\ table[i][j]\ \=\=\ table[j][i]\ gives\ the\ cost\ of\ travel\ between\ City\ i\ and\ City\ j.\n
+comment3.params=cs\ table
+comment3.target=int[]\ tsp2opt(int[],\ double[][])
+comment3.text=\n\ Uses\ 2-OPT\ repeatedly\ to\ improve\ cs,\ choosing\ the\ shortest\ option\ in\ each\ iteration.\n\ You\ can\ assume\ that\ cs\ is\ a\ valid\ tour\ initially.\n\ table[i][j]\ \=\=\ table[j][i]\ gives\ the\ cost\ of\ travel\ between\ City\ i\ and\ City\ j.\n
+numComments=4

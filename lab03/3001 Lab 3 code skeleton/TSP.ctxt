@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=TSP
+comment1.params=filename
+comment1.target=TSP(java.lang.String)
+comment1.text=\n\ Reads\ in\ the\ city\ locations\ from\ filename,\ one\ per\ line.\n\ Sets\ up\ n\ and\ cities,\ and\ calculates\ all\ inter-city\ distances\ for\ table.\n
+comment2.params=
+comment2.target=int[]\ tspnn()
+comment2.text=\n\ Returns\ the\ shortest\ tour\ found\ using\ the\ NN\ algorithm,\ or\ an\ error\ indication.\n
+comment3.params=cs
+comment3.target=int[]\ tsp2opt(int[])
+comment3.text=\n\ Returns\ the\ tour\ derived\ by\ applying\ 2-OPT\ to\ cs\ repeatedly\ in\ greedy\ fashion,\ \n\ or\ an\ error\ indication.\ \n
+comment4.params=cs
+comment4.target=double\ validate(int[])
+comment4.text=\n\ Checks\ if\ cs\ is\ a\ valid\ tour\ and\ returns\ either\ its\ cost\ or\ an\ error\ indication.\n
+comment5.params=c\ cs
+comment5.target=boolean\ ison(int,\ int[])
+comment5.text=\n\ Returns\ true\ iff\ c\ is\ on\ cs.\n
+comment6.params=cs
+comment6.target=double\ roundtrip(int[])
+comment6.text=\n\ Returns\ the\ total\ cost\ for\ the\ circular\ tour\ cs.\n
+comment7.params=x1\ y1\ x2\ y2
+comment7.target=double\ cost(double,\ double,\ double,\ double)
+comment7.text=\n\ Returns\ the\ cost\ of\ travel\ between\ x1,y1\ and\ x2,y2.\n
+numComments=8
